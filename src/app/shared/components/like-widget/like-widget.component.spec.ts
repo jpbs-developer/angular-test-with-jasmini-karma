@@ -31,6 +31,7 @@ describe(`#${LikeWidgetComponent.name}`, () => {
     expect(component.id).toBe(someId);
   });
 
+  //Teste utilizando 'done' junto com o subscribe do método para saber se o métodoem si foi chamado
   it(`#${LikeWidgetComponent.prototype.like.name} Should trigger emission when called`, (done) => {
     fixture.detectChanges();
     component.liked.subscribe(() => {
@@ -38,5 +39,13 @@ describe(`#${LikeWidgetComponent.name}`, () => {
       done();
     });
     component.like();
+  });
+
+  //  Teste utilizando spyOn para verificar se um método de um determinado objeto foi chamado
+  it(`#${LikeWidgetComponent.prototype.like.name} Should trigger emission when called`, () => {
+    spyOn(component.liked, 'emit');
+    fixture.detectChanges();
+    component.like();
+    expect(component.liked.emit).toHaveBeenCalled();
   });
 });
